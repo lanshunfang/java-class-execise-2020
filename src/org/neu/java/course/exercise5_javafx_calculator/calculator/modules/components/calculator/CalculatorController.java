@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.event.Event;
 import javafx.scene.control.*;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class CalculatorController {
 
   public enum OperatorEnum {
@@ -42,6 +45,8 @@ public class CalculatorController {
   public Label operatorLabel;
   @FXML
   public Label resultLabel;
+  @FXML
+  public Label errMsg;
 
   public void setOperator(String operator) {
     this.operatorLabel.setText(operator);
@@ -61,27 +66,45 @@ public class CalculatorController {
 
   private void calculate() {
     OperatorEnum operator = OperatorEnum.getEnumItemByValue(this.operatorLabel.getText());
-    int operand1 = Integer.valueOf(this.operand1TextField.getText());
-    int operand2 = Integer.valueOf(this.operand2TextField.getText());
+    float operand1 = Float.valueOf(this.operand1TextField.getText());
+    float operand2 = Float.valueOf(this.operand2TextField.getText());
+
+    this.errMsg.setText("");
 
     switch (operator) {
       case Add: {
-        this.resultLabel.setText(String.valueOf(operand1 + operand2));
+        this.updateResult(operand1 + operand2);
       }
       break;
       case Subtract: {
-        this.resultLabel.setText(String.valueOf(operand1 - operand2));
+        this.updateResult(operand1 - operand2);
       }
       break;
       case Multiply: {
-        this.resultLabel.setText(String.valueOf(operand1 * operand2));
+        this.updateResult(operand1 * operand2);
       }
       break;
       case Divide: {
-        this.resultLabel.setText(String.valueOf(operand1 / operand2));
+        if (!this.isIllegalDivide(operand2)) {
+          this.updateResult(operand1 / operand2);
+        } else {
+          this.resultLabel.setText("0");
+          this.errMsg.setText("Do not allow dividing by 0");
+        }
       }
       break;
     }
+  }
+
+  private void updateResult(float result) {
+    DecimalFormat format = new DecimalFormat("0.##"); // Choose the number of decimal places to work with in case they are different than zero and zero value will be removed
+    format.setRoundingMode(RoundingMode.UP); // choose your Rounding Mode
+
+    this.resultLabel.setText(format.format(result));
+  }
+
+  private boolean isIllegalDivide(float operand2) {
+    return operand2 == 0;
   }
 
   private void onInit() {

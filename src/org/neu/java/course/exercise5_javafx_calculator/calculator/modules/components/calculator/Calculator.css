@@ -2,14 +2,22 @@
     -fx-padding: 30px 20px;
     -fx-hgap: 10px;
     -fx-vgap: 10px;
-    -fx-alignment: center
+    -fx-alignment: center;
+    -fx-font-size: 15px;
 }
 .operator-label {
     -fx-alignment: center
 }
 .cell-center-alignment {
-    -fx-alignment: center
+    -fx-alignment: center;
 }
 .operator-container {
     -fx-spacing: 20px;
+}
+.result-label {
+    -fx-font-size: 18px;
+    -fx-padding: 30px 20px;
+}
+.err-msg {
+    -fx-text-fill: #ee2222;
 }

@@ -60,6 +60,8 @@
         <Label styleClass="result-label"
                text="Answer:"/>
         <Label styleClass="result-label" fx:id="resultLabel"/>
+
+        <Label styleClass="err-msg" fx:id="errMsg"/>
     </HBox>
 
     <stylesheets>
