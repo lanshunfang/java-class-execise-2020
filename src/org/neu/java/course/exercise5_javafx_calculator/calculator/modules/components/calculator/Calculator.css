@@ -1,0 +1,15 @@
+.root {
+    -fx-padding: 30px 20px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-alignment: center
+}
+.operator-label {
+    -fx-alignment: center
+}
+.cell-center-alignment {
+    -fx-alignment: center
+}
+.operator-container {
+    -fx-spacing: 20px;
+}

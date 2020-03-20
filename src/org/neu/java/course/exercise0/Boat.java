@@ -19,7 +19,7 @@ public class Boat {
   public String currentOwner;
 
   Boat(String VIN) {
-    this.VIN = VIN;Engineer
+    this.VIN = VIN;
     System.out.println("New Boat created with VIN " + VIN);
   }
 
