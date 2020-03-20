@@ -11,8 +11,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("modules/components/calculator/CalculatorView.fxml"));
-        primaryStage.setTitle("Simple Calculator");
-        primaryStage.setScene(new Scene(root, 500, 600));
+        primaryStage.setTitle("Simple Calculator, NEU MSIS 2020");
+        primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
