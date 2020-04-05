@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <GridPane
-        fx:controller="org.neu.java.course.exercise5_javafx_calculator.calculator.modules.components.calculator.CalculatorController"
+        fx:controller="org.neu.java.course.exercise5_javafx_calculator.modules.components.calculator.CalculatorController"
         xmlns:fx="http://javafx.com/fxml"
         styleClass="root">
 

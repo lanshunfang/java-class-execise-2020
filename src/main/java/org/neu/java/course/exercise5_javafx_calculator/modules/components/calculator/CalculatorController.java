@@ -1,4 +1,4 @@
-package org.neu.java.course.exercise5_javafx_calculator.calculator.modules.components.calculator;
+package org.neu.java.course.exercise5_javafx_calculator.modules.components.calculator;
 
 import javafx.fxml.FXML;
 
