@@ -1,0 +1,27 @@
+<?xml version = "1.0"?>
+<Books>
+    <Book>
+        <title>21 Irrefutable Laws of Leadership</title>
+        <publishedYear>1998</publishedYear>
+        <numberOfPages>256</numberOfPages>
+        <authors>
+            <author>John C. Maxwell</author>
+        </authors>
+    </Book>
+    <Book>
+        <title>Humility</title>
+        <publishedYear>1974</publishedYear>
+        <numberOfPages>50</numberOfPages>
+        <authors>
+            <author>Andrew Murray</author>
+        </authors>
+    </Book>
+    <Book>
+        <title>Spurgeon Commentary: Galatians</title>
+        <publishedYear>2014</publishedYear>
+        <numberOfPages>192</numberOfPages>
+        <authors>
+            <author>Charles Spurgeon</author>
+        </authors>
+    </Book>
+</Books>
