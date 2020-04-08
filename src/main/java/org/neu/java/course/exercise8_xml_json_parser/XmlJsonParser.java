@@ -84,7 +84,7 @@ public class XmlJsonParser {
       Document xmlDoc,
       String title,
       String publishedYear,
-      String numberOfPages,
+      int numberOfPages,
       String[] authors
   ) {
     Node newBook = xmlDoc.createElement("Book");
@@ -130,7 +130,7 @@ public class XmlJsonParser {
   private static JSONObject getNewBookJson(
       String title,
       String publishedYear,
-      String numberOfPages,
+      int numberOfPages,
       String[] authors
   ) {
     JSONObject newBook = new JSONObject();
@@ -177,6 +177,21 @@ public class XmlJsonParser {
 
     Node newNode = xmlDoc.createElement(nodeName);
     Node textNode = xmlDoc.createTextNode(text);
+    newNode.appendChild(textNode);
+    containerNode.appendChild(newNode);
+    return newNode;
+
+  }
+
+  private static Node appendNewNodeWithTextXml(
+      Document xmlDoc,
+      Node containerNode,
+      String nodeName,
+      int intValueAsText
+  ) {
+
+    Node newNode = xmlDoc.createElement(nodeName);
+    Node textNode = xmlDoc.createTextNode(intValueAsText + "");
     newNode.appendChild(textNode);
     containerNode.appendChild(newNode);
     return newNode;
@@ -268,7 +283,7 @@ public class XmlJsonParser {
             booksFromXML,
             "Love Is a Choice: The Definitive Book on Letting Go of Unhealthy Relationships",
             "2003",
-            "288",
+            288,
             new String[]{
                 "Robert Hemfelt",
                 "Frank Minirth",
@@ -291,7 +306,7 @@ public class XmlJsonParser {
         getNewBookJson(
             "Love Is a Choice: The Definitive Book on Letting Go of Unhealthy Relationships",
             "2003",
-            "288",
+            288,
             new String[]{
                 "Robert Hemfelt",
                 "Frank Minirth",

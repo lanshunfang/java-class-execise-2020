@@ -1,5 +1,6 @@
 <?xml version = "1.0"?>
-<Books>
+<Books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="books.xsd">
     <Book>
         <title>21 Irrefutable Laws of Leadership</title>
         <publishedYear>1998</publishedYear>

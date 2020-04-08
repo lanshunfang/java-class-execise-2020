@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="authorsType">
+        <xs:sequence>
+            <xs:element name="author" type="xs:token" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BookType">
+
+        <xs:sequence>
+            <xs:element name="title" type="xs:normalizedString"/>
+            <xs:element name="publishedYear" type="xs:gYear"/>
+            <xs:element name="numberOfPages" type="xs:integer"/>
+            <xs:element name="authors" type="authorsType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="Books">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Book" type="BookType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
