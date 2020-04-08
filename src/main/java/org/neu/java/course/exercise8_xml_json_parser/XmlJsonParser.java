@@ -6,6 +6,7 @@ import java.io.FileReader;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
+import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -16,6 +17,15 @@ import org.apache.commons.io.IOUtils;
 import org.w3c.dom.NodeList;
 
 public class XmlJsonParser {
+
+    enum BookPropertyEnum {
+        title,
+        publishedYear,
+        numberOfPages,
+        authors,
+        author,
+    }
+
     public static Document xmlParse(File file) {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -69,28 +79,8 @@ public class XmlJsonParser {
         }
     }
 
-    public static void jsonParse(File file) {
 
-        JSONParser parser = new JSONParser();
-
-        try {
-
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String json = IOUtils.toString(br);
-
-            Object obj = parser.parse(json);
-
-            JSONArray array = (JSONArray) obj;
-
-            System.out.println(array.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static Node getNewBook(
+    private static Node getNewBookXml(
             Document xmlDoc,
             String title,
             String publishedYear,
@@ -99,35 +89,35 @@ public class XmlJsonParser {
     ) {
         Node newBook = xmlDoc.createElement("Book");
 
-        appendNewNodeWithText(
+        appendNewNodeWithTextXml(
                 xmlDoc,
                 newBook,
-                "title",
+                BookPropertyEnum.title.toString(),
                 title
         );
 
-        appendNewNodeWithText(
+        appendNewNodeWithTextXml(
                 xmlDoc,
                 newBook,
-                "publishedYear",
+                BookPropertyEnum.publishedYear.toString(),
                 publishedYear
         );
 
-        appendNewNodeWithText(
+        appendNewNodeWithTextXml(
                 xmlDoc,
                 newBook,
-                "numberOfPages",
+                BookPropertyEnum.numberOfPages.toString(),
                 numberOfPages
         );
 
-        Node authorContainer = xmlDoc.createElement("authors");
+        Node authorContainer = xmlDoc.createElement(BookPropertyEnum.authors.toString());
 
         for (String author : authors) {
 
-            appendNewNodeWithText(
+            appendNewNodeWithTextXml(
                     xmlDoc,
                     authorContainer,
-                    "author",
+                    BookPropertyEnum.author.toString(),
                     author
             );
 
@@ -137,7 +127,43 @@ public class XmlJsonParser {
         return newBook;
     }
 
-    private static Node appendNewNodeWithText(
+    private static JSONObject getNewBookJson(
+            String title,
+            String publishedYear,
+            String numberOfPages,
+            String[] authors
+    ) {
+        JSONObject newBook = new JSONObject();
+
+        newBook.put(
+            BookPropertyEnum.title.toString(),
+            title
+        );
+
+        newBook.put(
+            BookPropertyEnum.publishedYear.toString(),
+            publishedYear
+        );
+
+        newBook.put(
+            BookPropertyEnum.numberOfPages.toString(),
+            numberOfPages
+        );
+
+
+        JSONArray authorContainer = new JSONArray();
+
+        for (String author : authors) {
+
+            authorContainer.add(author);
+
+        }
+
+
+        return newBook;
+    }
+
+    private static Node appendNewNodeWithTextXml(
             Document xmlDoc,
             Node containerNode,
             String nodeName,
@@ -152,21 +178,89 @@ public class XmlJsonParser {
 
     }
 
+    public static Object jsonParse(File file) {
+
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String json = IOUtils.toString(br);
+
+            obj = parser.parse(json);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+
+    }
+
+    public static void printJson(Object jsonObj) {
+        System.out.println(jsonObj.toString());
+//        if (jsonObj instanceof JSONArray) {
+//            System.out.println("Books");
+//            ((JSONArray) jsonObj).forEach(
+//                    book -> {
+//                        System.out.println("\tBook");
+//                        printBookJson((JSONObject) book, "\t\t");
+//                    }
+//            );
+//        }
+    }
+//
+//    private static void printBookJson(JSONObject jsonBook, String indent) {
+//        System.out.println(
+//                String.format(
+//                        "%s%s",
+//                        indent,
+//                        jsonBook.get(BookPropertyEnum.title.toString())
+//                )
+//        );
+//        System.out.println(
+//                String.format(
+//                        "%s%s",
+//                        indent,
+//                        jsonBook.get(BookPropertyEnum.publishedYear.toString())
+//                )
+//        );
+//        System.out.println(
+//                String.format(
+//                        "%s%s",
+//                        indent,
+//                        jsonBook.get(BookPropertyEnum.numberOfPages.toString())
+//                )
+//        );
+//        JSONArray authors = (JSONArray)jsonBook.get(BookPropertyEnum.authors.toString());
+//
+//        for (author: authors) {
+//            System.out.println(
+//                    String.format(
+//                            "%s%s",
+//                            indent,
+//
+//                            )
+//            );
+//        }
+//
+//    }
 
     public static void main(String... args) {
 
         File booksXml = new File(XmlJsonParser.class.getClassLoader().getResource("json-parser/books.xml").getFile());
-//        File booksJson = new File(XmlJsonParser.class.getClassLoader().getResource("json-parser/books.json").getFile());
+        File booksJson = new File(XmlJsonParser.class.getClassLoader().getResource("json-parser/books.json").getFile());
 
-        Document xmlDoc = XmlJsonParser.xmlParse(booksXml);
+        Document booksFromXML = XmlJsonParser.xmlParse(booksXml);
 
-        System.out.println("[INFO] First parse XML");
-        printXmlDoc(xmlDoc, "");
+        System.out.println("[INFO] Parse XML");
+        printXmlDoc(booksFromXML, "");
 
 
-        xmlDoc.getFirstChild().appendChild(
-                getNewBook(
-                        xmlDoc,
+        System.out.println("[INFO] Append a new book into XML DOM");
+        booksFromXML.getFirstChild().appendChild(
+                getNewBookXml(
+                    booksFromXML,
                         "Love Is a Choice: The Definitive Book on Letting Go of Unhealthy Relationships",
                         "2003",
                         "288",
@@ -178,9 +272,28 @@ public class XmlJsonParser {
                 )
         );
 
-        System.out.println("[INFO] Append a new book into XML DOM");
-        printXmlDoc(xmlDoc, "");
+//        printXmlDoc(xmlDoc, "");
 
-//        XmlJsonParser.jsonParse(booksJson);
+
+        System.out.println("[INFO] Parse JSON");
+
+        JSONArray booksFromJSON = (JSONArray) XmlJsonParser.jsonParse(booksJson);
+        XmlJsonParser.printJson(booksFromJSON);
+
+        booksFromJSON.add(
+            getNewBookJson(
+                "Love Is a Choice: The Definitive Book on Letting Go of Unhealthy Relationships",
+                "2003",
+                "288",
+                new String[]{
+                    "Robert Hemfelt",
+                    "Frank Minirth",
+                    "Paul Meier"
+                }
+            )
+        );
+
+        System.out.println("[INFO] Add a new book to JSON object");
+
     }
 }
