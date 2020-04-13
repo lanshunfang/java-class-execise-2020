@@ -1,4 +1,4 @@
-package org.neu.java.course.exercise8_xml_json_parser;
+package org.neu.java.exercise8_xml_json_parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -219,52 +219,7 @@ public class XmlJsonParser {
 
   public static void printJson(Object jsonObj) {
     System.out.println(jsonObj.toString());
-//        if (jsonObj instanceof JSONArray) {
-//            System.out.println("Books");
-//            ((JSONArray) jsonObj).forEach(
-//                    book -> {
-//                        System.out.println("\tBook");
-//                        printBookJson((JSONObject) book, "\t\t");
-//                    }
-//            );
-//        }
   }
-//
-//    private static void printBookJson(JSONObject jsonBook, String indent) {
-//        System.out.println(
-//                String.format(
-//                        "%s%s",
-//                        indent,
-//                        jsonBook.get(BookPropertyEnum.title.toString())
-//                )
-//        );
-//        System.out.println(
-//                String.format(
-//                        "%s%s",
-//                        indent,
-//                        jsonBook.get(BookPropertyEnum.publishedYear.toString())
-//                )
-//        );
-//        System.out.println(
-//                String.format(
-//                        "%s%s",
-//                        indent,
-//                        jsonBook.get(BookPropertyEnum.numberOfPages.toString())
-//                )
-//        );
-//        JSONArray authors = (JSONArray)jsonBook.get(BookPropertyEnum.authors.toString());
-//
-//        for (author: authors) {
-//            System.out.println(
-//                    String.format(
-//                            "%s%s",
-//                            indent,
-//
-//                            )
-//            );
-//        }
-//
-//    }
 
   public static void main(String... args) {
 
@@ -292,7 +247,7 @@ public class XmlJsonParser {
         )
     );
 
-//        printXmlDoc(xmlDoc, "");
+    printXmlDoc(booksFromXML, "");
 
 
     System.out.println("[INFO] ");
