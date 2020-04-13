@@ -1,4 +1,4 @@
-package org.neu.java.course.exercise4;
+package org.neu.java.exercise4;
 
 import java.util.regex.*;
 

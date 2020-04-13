@@ -1,4 +1,4 @@
-package org.neu.java.course.exercise1;
+package org.neu.java.exercise1;
 
 public class Session extends Student {
 

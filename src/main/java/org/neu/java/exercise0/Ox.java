@@ -1,4 +1,4 @@
-package org.neu.java.course.exercise0;
+package org.neu.java.exercise0;
 
 import java.util.Date;
 
