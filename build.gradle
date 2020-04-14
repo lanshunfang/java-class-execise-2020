@@ -40,8 +40,8 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.2-jre'
 
-    // Use TestNG framework, also requires calling test.useTestNG() below
-    testImplementation 'org.testng:testng:7.0.0'
+//    testImplementation 'org.testng:testng:7.0.0'
+    testImplementation('junit:junit:4.13')
 
     compile group: 'org.json', name: 'json', version: '20190722'
 
@@ -58,7 +58,7 @@ dependencies {
 application {
     // Define the main class for the application.
 //    mainClassName = 'gardle.build.App'
-    mainClassName = 'org.neu.java.course.exercise8_xml_json_parser.XmlJsonParser'
+    mainClassName = 'org.neu.java.exercise8_xml_json_parser.XmlJsonParser'
 }
 
 test {

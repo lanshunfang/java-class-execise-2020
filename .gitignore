@@ -73,10 +73,10 @@ fabric.properties
 # Ignore Gradle project-specific cache directory
 
 # Ignore Gradle build output directory
-build
-
 .gradle
-/build/
+
+build/
+build/*
 
 # Ignore Gradle GUI config
 gradle-app.setting
