@@ -12,6 +12,8 @@ public class CryptoRSA {
 
     static class RSA {
 
+        static int RSALength = 2048;
+
         public static void initKeyPair() {
             if (keyPair == null) {
                 generateKeyPair();
@@ -43,7 +45,7 @@ public class CryptoRSA {
         static void generateKeyPair() {
             try {
                 KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-                generator.initialize(2048, new SecureRandom());
+                generator.initialize(RSALength, new SecureRandom());
                 keyPair = generator.generateKeyPair();
 
             } catch (NoSuchAlgorithmException e) {
@@ -71,6 +73,58 @@ public class CryptoRSA {
             ));
         }
 
+        private Signature getSignature(byte[] anyByte, boolean isSign) {
+
+            try {
+                Signature privateSignature = Signature.getInstance("SHA256withRSA");
+
+                if (isSign) {
+                    privateSignature.initSign(keyPair.getPrivate());
+
+                } else {
+                    privateSignature.initVerify(keyPair.getPublic());
+                }
+
+                privateSignature.update(anyByte);
+
+                return privateSignature;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        public String getSignedMessage(String message) {
+
+            try {
+                return Base64.getEncoder().encodeToString(
+                        getSignature(message.getBytes(), true).sign()
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        public boolean isMessageVerified(String message, String signature) {
+
+            try {
+                return getSignature(
+                        message.getBytes(),
+                        false
+                ).verify(
+                        Base64.getDecoder().decode(signature)
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
     }
 
     public static class People {
@@ -87,6 +141,14 @@ public class CryptoRSA {
 
         public String listen(String encryptedText) {
             return new RSA().getUnEncryptedMessage(encryptedText);
+        }
+
+        public String sign(String plainText) {
+            return new RSA().getSignedMessage(plainText);
+        }
+
+        public boolean verify(String plainText, String signature) {
+            return new RSA().isMessageVerified(plainText, signature);
         }
     }
 
@@ -107,6 +169,14 @@ public class CryptoRSA {
 
         String info = bob.listen(myth);
         System.out.println("Decrypted: " + info);
+
+        String signature = alice.sign(rawText);
+        System.out.println("Signed: " + signature);
+
+        boolean isSignatureVerified = alice.verify(rawText, signature);
+        System.out.println("Is Verified: " + isSignatureVerified);
+
+
     }
 
 }
