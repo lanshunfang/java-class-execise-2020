@@ -4,7 +4,7 @@ import java.util.Date;
 
 public abstract class Shape {
     final String name;
-    volatile long createdTime;
+    transient long createdTime;
 
     static int countOfShapeCreated;
 

@@ -1,4 +1,4 @@
-package org.neu.java.exercise2_oop;
+package org.neu.java.exercise3_serialization;
 
 public class Triangle extends Shape {
 
@@ -28,6 +28,10 @@ public class Triangle extends Shape {
         Shape shape = new Triangle("Triangle A", 3, 4, 5);
 
         shape.printInfo();
+        shape.serialize();
+
+        Shape shapeFromDeserialization = shape.deserialize();
+        shapeFromDeserialization.printInfo();
     }
 
 }
