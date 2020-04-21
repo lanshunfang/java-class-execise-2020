@@ -58,7 +58,8 @@ dependencies {
 application {
     // Define the main class for the application.
 //    mainClassName = 'gardle.build.App'
-    mainClassName = 'org.neu.java.exercise8_xml_json_parser.XmlJsonParser'
+//    mainClassName = 'org.neu.java.exercise8_xml_json_parser.XmlJsonParser'
+    mainClassName = 'org.neu.java.exercise9_javafx_calculator.Main'
 }
 
 test {
